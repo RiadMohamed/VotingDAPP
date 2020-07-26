@@ -3,6 +3,9 @@ pragma solidity >=0.4.22 <0.6.2;
 contract Election {
     string public candidate;
 
+    event votedEvent (
+        uint indexed _candidateId
+    ); 
 
     struct Candidate {
         uint id;
@@ -25,6 +28,7 @@ contract Election {
         require(_candidateId > 0 && _candidateId <= candidatesCount);
         voters[msg.sender] = true;
         candidates[_candidateId].voteCount ++;
+        emit votedEvent(_candidateId);
     }
 
     constructor() public {
